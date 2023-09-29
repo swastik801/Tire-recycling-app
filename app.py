@@ -23,7 +23,7 @@ def main():
     st.title("Tyre Recycling Sustainability")
 
     # Display the image
-    st.image("your_image_file.jpg")
+    st.image("Tire_image.jpeg")
 
     # Create a sidebar
     st.sidebar.header("Options")
