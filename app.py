@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import leafmap
 
-# Load the data
+# Load the datas
 df = pd.read_csv("open_source_data_v6.csv")
 
 # Create a leafmap map
