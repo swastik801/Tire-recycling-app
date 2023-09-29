@@ -13,7 +13,7 @@ m.add_heatmap(
     "open_source_data_v8.csv",
     latitude="latitude",
     longitude="longitude",
-    value="pop_max",
+    value="Pincode",
     name="Heat map",
     radius=20,
 )
