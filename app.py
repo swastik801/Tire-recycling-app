@@ -11,8 +11,8 @@ m = leafmap.Map(center=[40, -100], zoom=4, tiles="stamentoner")
 # Add a heatmap to the map
 m.add_heatmap(
     "open_source_data_v8.csv",
-    latitude="latitude",
-    longitude="longitude",
+    latitude="Latitude",
+    longitude="Longitude",
     value="Pincode",
     name="Heat map",
     radius=20,
