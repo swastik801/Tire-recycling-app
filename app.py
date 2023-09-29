@@ -1,32 +1,48 @@
 import streamlit as st
 import pandas as pd
-import folium
-from streamlit_folium import folium_static
-from folium.plugins import HeatMap
+import leafmap
 
 # Load the data
-data = pd.read_csv('open_source_datasetv2.csv')
+df = pd.read_csv("open_source_data_v6.csv")
 
-# Calculate the number of recycled tires at each location
-recycled_tires = data.groupby(['Latitude', 'Longitude', 'Tire Brand', 'Recycling Facility']).size().reset_index(name='RecycledTires')
+# Create a leafmap map
+m = leafmap.Map(center=[40, -100], zoom=4, tiles="stamentoner")
 
-# Create a select box for the tire brands
-selected_brand = st.selectbox('Select a tire brand', recycled_tires['Tire Brand'].unique())
+# Add a heatmap to the map
+m.add_heatmap(
+    "your_csv_file.csv",
+    latitude="latitude",
+    longitude="longitude",
+    value="pop_max",
+    name="Heat map",
+    radius=20,
+)
 
-# Filter the data for the selected tire brand
-filtered_data = recycled_tires[recycled_tires['Tire Brand'] == selected_brand]
+# Streamlit app
+def main():
+    st.title("Tyre Recycling Sustainability")
 
-# Create a select box for the recycling facilities
-selected_facility = st.selectbox('Select a recycling facility', filtered_data['Recycling Facility'].unique())
+    # Display the image
+    st.image("your_image_file.jpg")
 
-# Filter the data for the selected recycling facility
-filtered_data = filtered_data[filtered_data['Recycling Facility'] == selected_facility]
+    # Create a sidebar
+    st.sidebar.header("Options")
 
-# Create a map centered around the mean latitude and longitude values
-m = folium.Map(location=[filtered_data['Latitude'].mean(), filtered_data['Longitude'].mean()], zoom_start=13)
+    # Add a selectbox for the tire brands
+    brand = st.sidebar.selectbox(
+        "Select a Tire Brand",
+        df["Tire Brand"].unique()
+    )
 
-# Create a heatmap layer and add it to the map
-HeatMap(filtered_data[['Latitude', 'Longitude', 'RecycledTires']].values.tolist()).add_to(m)
+    # Add a selectbox for the locations
+    location = st.sidebar.selectbox(
+        "Select a Location",
+        df["Location"].unique()
+    )
 
-# Display the map in the Streamlit app
-folium_static(m)
+    # Add a button for the heatmap
+    if st.sidebar.button("Show Heatmap"):
+        st.pydeck_chart(m)
+
+if __name__ == "__main__":
+    main()
