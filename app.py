@@ -2,8 +2,15 @@ import streamlit as st
 import pandas as pd
 import leafmap
 
-# Load the dataset
+# Load the data
 df = pd.read_csv("open_source_data_v8.csv")
+
+# Check if the DataFrame is loaded correctly
+if "Latitude" in df.columns and "Longitude" in df.columns:
+    st.write("DataFrame loaded successfully.")
+else:
+    st.write("Error: Latitude and Longitude columns not found in the DataFrame.")
+    st.stop()  # Stop the Streamlit app if there's an issue with the dataset
 
 # Check and convert "Latitude" and "Longitude" to numeric if they are not already
 if not pd.api.types.is_numeric_dtype(df["Latitude"]):
@@ -17,7 +24,7 @@ m = leafmap.Map(center=[40, -100], zoom=4, tiles="stamentoner")
 
 # Add a heatmap to the map
 m.add_heatmap(
-    df=df,
+    df=df,  # Provide the DataFrame as a separate argument
     latitude="Latitude",
     longitude="Longitude",
     value="Pincode",
