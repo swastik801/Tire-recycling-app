@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import leafmap
 
-# Load the data
+# Load the dataset
 df = pd.read_csv("open_source_data_v8.csv")
 
 # Check and convert "Latitude" and "Longitude" to numeric if they are not already
