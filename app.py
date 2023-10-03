@@ -5,6 +5,13 @@ import leafmap
 # Load the data
 df = pd.read_csv("open_source_data_v8.csv")
 
+# Check and convert "Latitude" and "Longitude" to numeric if they are not already
+if not pd.api.types.is_numeric_dtype(df["Latitude"]):
+    df["Latitude"] = pd.to_numeric(df["Latitude"], errors="coerce")
+
+if not pd.api.types.is_numeric_dtype(df["Longitude"]):
+    df["Longitude"] = pd.to_numeric(df["Longitude"], errors="coerce")
+
 # Create a leafmap map
 m = leafmap.Map(center=[40, -100], zoom=4, tiles="stamentoner")
 
