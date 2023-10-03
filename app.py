@@ -17,7 +17,7 @@ m = leafmap.Map(center=[40, -100], zoom=4, tiles="stamentoner")
 
 # Add a heatmap to the map
 m.add_heatmap(
-    df,
+    df=df,
     latitude="Latitude",
     longitude="Longitude",
     value="Pincode",
