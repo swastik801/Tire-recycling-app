@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import leafmap
 
-# Load the datas
+# Load the data
 df = pd.read_csv("open_source_data_v8.csv")
 
 # Create a leafmap map
@@ -10,7 +10,7 @@ m = leafmap.Map(center=[40, -100], zoom=4, tiles="stamentoner")
 
 # Add a heatmap to the map
 m.add_heatmap(
-    "open_source_data_v8.csv",
+    df,
     latitude="Latitude",
     longitude="Longitude",
     value="Pincode",
@@ -42,7 +42,7 @@ def main():
 
     # Add a button for the heatmap
     if st.sidebar.button("Show Heatmap"):
-        st.pydeck_chart(m)
+        st.write(m)
 
 if __name__ == "__main__":
-    main()
+    main() 
