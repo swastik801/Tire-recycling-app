@@ -12,21 +12,15 @@ else:
     st.write("Error: Latitude and Longitude columns not found in the DataFrame.")
     st.stop()  # Stop the Streamlit app if there's an issue with the dataset
 
-# Check and convert "Latitude" and "Longitude" to numeric if they are not already
-if not pd.api.types.is_numeric_dtype(df["Latitude"]):
-    df["Latitude"] = pd.to_numeric(df["Latitude"], errors="coerce")
-
-if not pd.api.types.is_numeric_dtype(df["Longitude"]):
-    df["Longitude"] = pd.to_numeric(df["Longitude"], errors="coerce")
+# Rename columns to match Leafmap's default naming
+df = df.rename(columns={"Latitude": "latitude", "Longitude": "longitude"})
 
 # Create a leafmap map
 m = leafmap.Map(center=[40, -100], zoom=4, tiles="stamentoner")
 
 # Add a heatmap to the map
 m.add_heatmap(
-    df=df,  # Provide the DataFrame as a separate argument
-    Latitude="Latitude",
-    Longitude="Longitude",
+    df=df,
     value="Pincode",
     name="Heat map",
     radius=20,
