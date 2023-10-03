@@ -5,15 +5,9 @@ import folium
 from folium.plugins import HeatMap
 from sklearn.ensemble import RandomForestClassifier
 
-# Sample data for demonstration
-data = pd.DataFrame({
-    'Tire_Brand': np.random.choice(['Brand A', 'Brand B', 'Brand C'], 100),
-    'Location': np.random.choice(['Location 1', 'Location 2', 'Location 3'], 100),
-    'Tread_Depth': np.random.randint(3, 12, 100),
-    'Odometer_Reading': np.random.randint(10000, 60000, 100),
-    'Age': np.random.randint(1, 6, 100),
-    'Condition': np.random.choice(['Used', 'Scrapped'], 100)
-})
+# Load data from Streamlit GitHub repository
+data_url = 'https://raw.githubusercontent.com/streamlit/demo-apps/master/tire_recycling/tire.csv'
+data = pd.read_csv(data_url)
 
 # Sidebar
 st.sidebar.image("tire_recycling_image.jpg", use_container_width=True)
