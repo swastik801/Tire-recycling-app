@@ -15,8 +15,8 @@ else:
     st.write("Error: Latitude and Longitude columns not found in the DataFrame.")
     st.stop()  # Stop the Streamlit app if there's an issue with the dataset
 
-# Convert Tread_Depth to float
-df['Tread_Depth'] = df['Tread_Depths'].astype(float)
+# rename
+df['Tread_Depth'] = df['Tread_Depths']
 
 # Aggregate count of Tire Brand for each location
 df_agg = df.groupby(['Latitude', 'Longitude', 'Tire Brand']).size().reset_index(name='counts')
