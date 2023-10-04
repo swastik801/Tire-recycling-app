@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import folium
 from folium.plugins import HeatMap
+from streamlit_folium import folium_static
 
 # Load the data
 df = pd.read_csv("open_source_data_v8.csv", sep=',')
