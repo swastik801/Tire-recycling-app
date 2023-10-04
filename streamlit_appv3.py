@@ -4,9 +4,10 @@ import folium
 from folium.plugins import HeatMap
 from streamlit_folium import folium_static
 from sklearn.ensemble import RandomForestClassifier
+import numpy as np
 
 # Load the data
-df = pd.read_csv("open_source_data_v8.csv", sep=',')
+df = pd.read_csv("Tire.csv", sep=',')
 
 # Check if the DataFrame is loaded correctly
 if "Latitude" in df.columns and "Longitude" in df.columns:
@@ -15,8 +16,12 @@ else:
     st.write("Error: Latitude and Longitude columns not found in the DataFrame.")
     st.stop()  # Stop the Streamlit app if there's an issue with the dataset
 
-# Convert Tread_Depth to float
+# Convert Tread_Depth to float and replace NaN values with 0
 df['Tread_Depth'] = pd.to_numeric(df['Tread_Depths'], errors='coerce')
+df['Tread_Depth'].fillna(0, inplace=True)
+
+# Replace infinite values with finite numbers
+df.replace([np.inf, -np.inf], np.nan, inplace=True)
 
 # Aggregate count of Tire Brand for each location
 df_agg = df.groupby(['Latitude', 'Longitude', 'Tire Brand']).size().reset_index(name='counts')
