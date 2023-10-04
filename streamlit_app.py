@@ -6,7 +6,7 @@ from folium.plugins import HeatMap
 from sklearn.ensemble import RandomForestClassifier
 
 # Load data from Streamlit GitHub repository
-data_url = 'open_source_data_v8.csv'
+data_url = open_source_data_v8.csv
 data = pd.read_csv(data_url)
 
 # Sidebar
