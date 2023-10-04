@@ -5,3 +5,4 @@ folium==0.12.1
 leafmap
 streamlit-folium==0.3.0
 scikit-learn==1.0.1
+geopy==2.2.0
