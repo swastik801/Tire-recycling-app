@@ -16,7 +16,7 @@ else:
     st.stop()  # Stop the Streamlit app if there's an issue with the dataset
 
 # Convert Tread_Depth to float
-df['Tread_Depth'] = df['Tread_Depth'].astype(float)
+df['Tread_Depth'] = df['Tread_Depths'].astype(float)
 
 # Aggregate count of Tire Brand for each location
 df_agg = df.groupby(['Latitude', 'Longitude', 'Tire Brand']).size().reset_index(name='counts')
