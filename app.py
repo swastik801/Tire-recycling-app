@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import leafmap.leaflet as leaf
+import leafmap.foliumap as leaf
 
 # Load the data
 df = pd.read_csv("open_source_data_v8.csv", sep=',')
