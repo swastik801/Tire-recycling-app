@@ -6,11 +6,10 @@ from folium.plugins import HeatMap
 from sklearn.ensemble import RandomForestClassifier
 
 # Load data from Streamlit GitHub repository
-data_url = open_source_data_v8.csv
-data = pd.read_csv(data_url)
+data = pd.read_csv("open_source_data_v8.csv", sep=',')
 
 # Sidebar
-st.sidebar.image("tire_recycling_image.jpg", use_container_width=True)
+st.sidebar.image("Tire_image.jpeg", use_container_width=True)
 tire_brand = st.sidebar.selectbox("Tire Brand", data['Tire_Brand'].unique())
 location = st.sidebar.selectbox("Location", data['Location'].unique())
 heatmap_button = st.sidebar.button("Heatmap")
