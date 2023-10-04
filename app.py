@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
-import leafmap.foliumap as leaf
+import folium
+from folium.plugins import HeatMap
 
 # Load the data
 df = pd.read_csv("open_source_data_v8.csv", sep=',')
@@ -12,21 +13,14 @@ else:
     st.write("Error: Latitude and Longitude columns not found in the DataFrame.")
     st.stop()  # Stop the Streamlit app if there's an issue with the dataset
 
-# Rename columns to match Leafmap's default naming
-df = df.rename(columns={"Latitude": "latitude", "Longitude": "longitude"})
+# Aggregate count of Tire Brand for each location
+df_agg = df.groupby(['Latitude', 'Longitude', 'Tire Brand']).size().reset_index(name='counts')
 
-# Create a leafmap map
-m = leaf.Map(center=[40, -100], zoom=4)
+# Create a folium map
+m = folium.Map(location=[40, -100], zoom_start=4)
 
 # Add a heatmap to the map
-m.add_heatmap(
-    data=df,
-    latitude="latitude",
-    longitude="longitude",
-    value="Pincode",
-    name="Heat map",
-    radius=20,
-)
+HeatMap(data=df_agg[['Latitude', 'Longitude', 'counts']].values.tolist()).add_to(m)
 
 # Streamlit app
 def main():
@@ -52,7 +46,7 @@ def main():
 
     # Add a button for the heatmap
     if st.sidebar.button("Show Heatmap"):
-        st.write(m)
+        folium_static(m)
 
 if __name__ == "__main__":
     main()
