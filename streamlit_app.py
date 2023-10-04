@@ -22,7 +22,7 @@ if heatmap_button:
     st.subheader("Heatmap of Tire Brand Counts")
     
     # Filter data based on selected Tire Brand and Location
-    filtered_data = data[(data['Tire_Brand'] == tire_brand) & (data['Location'] == location)]
+    filtered_data = data[(data['Tire Brand'] == tire_brand) & (data['Location'] == location)]
     
     # Create a heatmap using Folium
     m = folium.Map(location=[0, 0], zoom_start=1)
