@@ -3,7 +3,7 @@ import pandas as pd
 import leafmap
 
 # Load the data
-df = pd.read_csv("open_source_data_v8.csv")
+df = pd.read_csv("open_source_data_v8.csv", sep=',')
 
 # Check if the DataFrame is loaded correctly
 if "Latitude" in df.columns and "Longitude" in df.columns:
