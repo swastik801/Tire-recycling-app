@@ -6,7 +6,7 @@ from streamlit_folium import folium_static
 from sklearn.ensemble import RandomForestClassifier
 
 # Load the data
-df = pd.read_csv("open_source_data_v8.csv", sep=',')
+df = pd.read_csv("Tire.csv", sep=',')
 
 # Check if the DataFrame is loaded correctly
 if "Latitude" in df.columns and "Longitude" in df.columns:
