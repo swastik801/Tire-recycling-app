@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import leafmap
+import leafmap as leaf
 
 # Load the data
 df = pd.read_csv("open_source_data_v8.csv", sep=',')
@@ -16,11 +16,13 @@ else:
 df = df.rename(columns={"Latitude": "latitude", "Longitude": "longitude"})
 
 # Create a leafmap map
-m = leafmap.Map(center=[40, -100], zoom=4, tiles="stamentoner")
+m = leaf.Map(center=[40, -100], zoom=4, basemap=leaf.basemaps.Stamen.Toner)
 
 # Add a heatmap to the map
 m.add_heatmap(
-    df=df,
+    data=df,
+    latitude="latitude",
+    longitude="longitude",
     value="Pincode",
     name="Heat map",
     radius=20,
