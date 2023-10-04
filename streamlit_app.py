@@ -10,7 +10,7 @@ data = pd.read_csv("open_source_data_v8.csv", sep=',')
 
 # Sidebar
 st.sidebar.image("Tire_image.jpeg")
-tire_brand = st.sidebar.selectbox("Tire Brand", data['Tire_Brand'].unique())
+tire_brand = st.sidebar.selectbox("Tire Brand", data['Tire Brand'].unique())
 location = st.sidebar.selectbox("Location", data['Location'].unique())
 heatmap_button = st.sidebar.button("Heatmap")
 
