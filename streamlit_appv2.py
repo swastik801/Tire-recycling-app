@@ -25,7 +25,7 @@ m = folium.Map(location=[40, -100], zoom_start=4)
 HeatMap(data=df_agg[['Latitude', 'Longitude', 'counts']].values.tolist()).add_to(m)
 
 # Prepare data for Random Forest model
-X = df[['Tread_Depth', 'Odometer_Reading', 'Age']]
+X = df[['Tread_Depths', 'Odometer_Reading', 'Age']]
 y = df['Condition']  # Assuming 'Condition' is your target variable
 
 # Train Random Forest model
@@ -57,7 +57,7 @@ def main():
     # Add dropdowns for Tread_Depth, Odometer_Reading and Age
     tread_depth = st.sidebar.selectbox(
         "Select Tread Depth",
-        df["Tread_Depth"].unique()
+        df["Tread_Depths"].unique()
     )
     
     odometer_reading = st.sidebar.selectbox(
@@ -77,7 +77,7 @@ def main():
     # Add a button for prediction
     if st.sidebar.button("Predict"):
         # Use trained model to make prediction
-        prediction = model.predict([[tread_depth, odometer_reading, age]])[0]
+        prediction = model.predict([[tread_depths, odometer_reading, age]])[0]
         st.write(f"AI algorithm predicts that condition of Tire is {prediction}")
 
 if __name__ == "__main__":
