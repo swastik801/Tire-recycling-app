@@ -4,3 +4,4 @@ numpy==1.21.2
 folium==0.12.1
 scikit-learn==0.24.2
 leafmap
+streamlit-folium==0.3.0
