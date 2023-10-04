@@ -6,7 +6,7 @@ from folium.plugins import HeatMap
 from sklearn.ensemble import RandomForestClassifier
 
 # Load data from Streamlit GitHub repository
-data_url = 'https://raw.githubusercontent.com/streamlit/demo-apps/master/tire_recycling/tire.csv'
+data_url = 'https://raw.githubusercontent.com/streamlit/demo-apps/master/tire_recycling/open_source_data_v8.csv'
 data = pd.read_csv(data_url)
 
 # Sidebar
