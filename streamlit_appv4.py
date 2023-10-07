@@ -9,12 +9,12 @@ import numpy as np
 # Load the data
 df = pd.read_csv("Tire_v1.csv", sep=',')
 
-# Check if the DataFrame is loaded correctly
-if "Latitude" in df.columns and "Longitude" in df.columns:
-  st.write("DataFrame loaded successfully.")
-else:
-  st.write("Error: Latitude and Longitude columns not found in the DataFrame.")
-  st.stop() # Stop the Streamlit app if there's an issue with the dataset
+# # Check if the DataFrame is loaded correctly
+# if "Latitude" in df.columns and "Longitude" in df.columns:
+#   st.write("DataFrame loaded successfully.")
+# else:
+#   st.write("Error: Latitude and Longitude columns not found in the DataFrame.")
+#   st.stop() # Stop the Streamlit app if there's an issue with the dataset
 
 # Convert Tread_Depth to float and replace NaN values with 0
 df['Tread_Depth'] = pd.to_numeric(df['Tread_Depths'], errors='coerce')
