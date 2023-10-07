@@ -23,14 +23,8 @@ df['Tread_Depth'].fillna(0, inplace=True)
 # Replace infinite values with finite numbers
 df.replace([np.inf, -np.inf], np.nan, inplace=True)
 
-# Aggregate count of Tire Brand for each location
-df_agg = df.groupby(['Latitude', 'Longitude']).size().reset_index(name='counts')
-
 # Create a folium map
 m = folium.Map(location=[40, -100], zoom_start=4)
-
-# Add a heatmap to the map
-HeatMap(data=df_agg[['Latitude', 'Longitude', 'counts']].values.tolist()).add_to(m)
 
 # Prepare data for Random Forest model
 X = df[['Tread_Depth', 'Odometer_Reading', 'Age']]
@@ -71,14 +65,15 @@ def main():
         prediction = model.predict([[tread_depth, odometer_reading, age]])[0]
         st.write(f"AI algorithm predicts that condition of Tire is {prediction}")
 
-    # Add a selectbox for the tire brands
-    brand = st.sidebar.selectbox(
-        "Select a Tire Brand",
-        df["Tire Brand"].unique()
-    )
-
     # Add a button for the heatmap
     if st.sidebar.button("Show Heatmap"):
+        # Create a new DataFrame for heatmap data
+        heatmap_data = df.groupby(['Latitude', 'Longitude']).size().reset_index(name='counts')
+
+        # Add a heatmap layer to the map
+        HeatMap(data=heatmap_data, radius=15).add_to(m)
+        
+        # Display the map with the heatmap
         folium_static(m)
 
 if __name__ == "__main__":
