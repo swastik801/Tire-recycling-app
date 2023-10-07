@@ -24,7 +24,7 @@ df['Tread_Depth'].fillna(0, inplace=True)
 df.replace([np.inf, -np.inf], np.nan, inplace=True)
 
 # Aggregate count of Tire Brand for each location
-df_agg = df.groupby(['Latitude', 'Longitude', 'Tire Brand']).size().reset_index(name='counts')
+df_agg = df.groupby(['Latitude', 'Longitude']).size().reset_index(name='counts')
 
 # Create a folium map
 m = folium.Map(location=[40, -100], zoom_start=4)
@@ -77,22 +77,9 @@ def main():
         df["Tire Brand"].unique()
     )
 
-    # Add a selectbox for the locations
-    location = st.sidebar.selectbox(
-        "Select a Location",
-        df["Location"].unique()
-    )
-
     # Add a button for the heatmap
     if st.sidebar.button("Show Heatmap"):
-        # Filter data for the selected location
-        selected_location_data = df_agg[(df_agg['Latitude'] == float(location.split(',')[0])) & (df_agg['Longitude'] == float(location.split(',')[1]))]
-        
-        if not selected_location_data.empty:
-            HeatMap(data=selected_location_data[['Latitude', 'Longitude', 'counts']].values.tolist()).add_to(m)
-            folium_static(m)
-        else:
-            st.warning("No data available for the selected location.")
+        folium_static(m)
 
 if __name__ == "__main__":
     main()
