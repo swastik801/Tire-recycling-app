@@ -86,9 +86,13 @@ def main():
     # Add a button for the heatmap
     if st.sidebar.button("Show Heatmap"):
         # Filter data for the selected location
-        selected_location_data = df_agg[(df_agg['Latitude'] == location.split(',')[0]) & (df_agg['Longitude'] == location.split(',')[1])]
-        HeatMap(data=selected_location_data[['Latitude', 'Longitude', 'counts']].values.tolist()).add_to(m)
-        folium_static(m)
+        selected_location_data = df_agg[(df_agg['Latitude'] == float(location.split(',')[0])) & (df_agg['Longitude'] == float(location.split(',')[1]))]
+        
+        if not selected_location_data.empty:
+            HeatMap(data=selected_location_data[['Latitude', 'Longitude', 'counts']].values.tolist()).add_to(m)
+            folium_static(m)
+        else:
+            st.warning("No data available for the selected location.")
 
 if __name__ == "__main__":
     main()
