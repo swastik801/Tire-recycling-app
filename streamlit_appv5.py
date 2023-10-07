@@ -26,9 +26,6 @@ df.replace([np.inf, -np.inf], np.nan, inplace=True)
 # Aggregate count of Tire Brand for each location
 df_agg = df.groupby(['Latitude', 'Longitude', 'Tire Brand']).size().reset_index(name='counts')
 
-# Create a folium map
-m = folium.Map(location=[40, -100], zoom_start=4)
-
 # Prepare data for Random Forest model
 X = df[['Tread_Depth', 'Odometer_Reading', 'Age']]
 y = df['Condition']  # Assuming 'Condition' is your target variable
@@ -79,6 +76,12 @@ def main():
     if brand is not None and location is not None and st.sidebar.button("Show Heatmap"):
         # Filter df_agg based on selected brand and location
         heatmap_data = df_agg[df_agg['Tire Brand'] == brand]
+        
+        # Get latitude and longitude of selected location
+        lat, lon = df[df['Location'] == location][['Latitude', 'Longitude']].values[0]
+        
+        # Create a folium map centered at selected location
+        m = folium.Map(location=[lat, lon], zoom_start=4)
         
         # Add a heatmap to the map based on filtered data
         HeatMap(data=heatmap_data[['Latitude', 'Longitude', 'counts']].values.tolist()).add_to(m)
