@@ -28,7 +28,7 @@ m = folium.Map(location=[40, -100], zoom_start=4)
 
 # Prepare data for Random Forest model
 X = df[['Tread_Depth', 'Odometer_Reading', 'Age']]
-y = df['Condition'] # Assuming 'Condition' is your target variable
+y = df['Condition'] 
 
 # Train Random Forest model
 model = RandomForestClassifier(random_state=42)
