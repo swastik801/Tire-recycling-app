@@ -78,7 +78,7 @@ def main():
         heatmap_data = df_agg[df_agg['Tire Brand'] == brand]
         
         # Create a folium map centered at Indian subcontinent
-        m = folium.Map(location=[20.5937, 78.9629], zoom_start=5)
+        m = folium.Map(location=[20.5937, 78.9629], zoom_start=7)
         
         # Add a heatmap to the map based on filtered data
         HeatMap(data=heatmap_data[['Latitude', 'Longitude', 'counts']].values.tolist()).add_to(m)
