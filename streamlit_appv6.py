@@ -7,7 +7,7 @@ from sklearn.ensemble import RandomForestClassifier
 import numpy as np
 
 # Load the data
-df = pd.read_csv("Tire_2.csv", sep=',')
+df = pd.read_csv("Tire_3.csv", sep=',')
 
 # Check if the DataFrame is loaded correctly
 if "Latitude" in df.columns and "Longitude" in df.columns:
