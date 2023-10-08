@@ -7,7 +7,7 @@ from sklearn.ensemble import RandomForestClassifier
 import numpy as np
 
 # Load the data
-df = pd.read_csv("Tire_3.csv", sep=',')
+df = pd.read_csv("Tire_3.csv", sep=',', header=0)
 
 # Check if the DataFrame is loaded correctly
 if "Latitude" in df.columns and "Longitude" in df.columns:
@@ -77,11 +77,8 @@ def main():
         # Filter df_agg based on selected brand and location
         heatmap_data = df_agg[df_agg['Tire Brand'] == brand]
         
-        # Get latitude and longitude of selected location
-        lat, lon = df[df['Location'] == location][['Latitude', 'Longitude']].values[0]
-        
-        # Create a folium map centered at selected location
-        m = folium.Map(location=[lat, lon], zoom_start=4)
+        # Create a folium map centered at Indian subcontinent
+        m = folium.Map(location=[20.5937, 78.9629], zoom_start=5)
         
         # Add a heatmap to the map based on filtered data
         HeatMap(data=heatmap_data[['Latitude', 'Longitude', 'counts']].values.tolist()).add_to(m)
@@ -90,4 +87,4 @@ def main():
         folium_static(m)
 
 if __name__ == "__main__":
-    main()
+    main() 
