@@ -63,13 +63,33 @@ def main():
         [None] + list(df["Tread_Depth"].unique())
     )
 
+    # Add "Tire Brand" and "Location" dropdowns with default blank values
+    tire_brand = st.sidebar.selectbox(
+        "Select Tire Brand",
+        [None] + list(df["Tire Brand"].unique())
+    )
+    
+    location = st.sidebar.selectbox(
+        "Select Location",
+        [None] + list(df["Location"].unique())
+    )
+
     # Calculate remaining life of tire based on tread depth and display visualization
-    if tread_depth is not None:
+    if odometer_reading is not None and age is not None and tread_depth is not None:
         remaining_life = model.predict([[tread_depth, odometer_reading, age]])
         if remaining_life == 1:
-            st.success("This tire can be reused!")
+            st.markdown("<p style='color:green; font-weight: bold;'>This tire can be reused!</p>", unsafe_allow_html=True)
         else:
-            st.error("This tire should be scrapped.")
+            st.markdown("<p style='color:red; font-weight: bold;'>This tire should be scrapped.</p>", unsafe_allow_html=True)
+
+    # Show heatmap button if both Tire Brand and Location are selected
+    if tire_brand is not None and location is not None:
+        if st.button("Show Heatmap"):
+            # Create a map using Folium and display it in Streamlit
+            m = folium.Map(location=[df['Latitude'].mean(), df['Longitude'].mean()], zoom_start=6)
+            heat_data = [[row['Latitude'], row['Longitude']] for index, row in df[(df['Tire Brand'] == tire_brand) & (df['Location'] == location)].iterrows()]
+            HeatMap(heat_data).add_to(m)
+            folium_static(m)
     
 if __name__ == "__main__":
     main()
